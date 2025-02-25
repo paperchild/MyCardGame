@@ -117,6 +117,11 @@ public class Tile
 		NearTile.Add(dir, nearTile);
 	}
 
+	public void AddTile_Type(Tile_Type type)
+	{
+		TileType = type;
+	}
+
 	public void AddCard(Card_Base card)
 	{
 		//CardOnTile= new Card_Base(card);
