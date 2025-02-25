@@ -117,11 +117,19 @@ public class Tile
 		NearTile.Add(dir, nearTile);
 	}
 
+	/// <summary>
+	/// 타일 타입 추가
+	/// </summary>
+	/// <param name="type">타일 타입</param>
 	public void AddTile_Type(Tile_Type type)
 	{
 		TileType = type;
 	}
 
+	/// <summary>
+	/// 카드 추가
+	/// </summary>
+	/// <param name="card">카드</param>
 	public void AddCard(Card_Base card)
 	{
 		//CardOnTile= new Card_Base(card);

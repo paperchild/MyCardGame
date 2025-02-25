@@ -23,7 +23,12 @@ public enum Card_Type
 	/// <summary>
 	/// 타워
 	/// </summary>
-	Tower = 3
+	Tower = 3,
+
+	/// <summary>
+	/// 성
+	/// </summary>
+	Castle=0
 }
 /// <summary>
 /// 유닛카드 타입
@@ -256,4 +261,19 @@ public class Card_Tower : Card_Base
 		TowerCardATK = tCardATK;
 		TowerCardDEF = tCardDEF;
 	}
+}
+
+/// <summary>
+/// 성 카드 베이스
+/// </summary>
+public class Card_Castle : Card_Tower
+{
+	/// <summary>
+	/// 성 카드 생성자
+	/// </summary>
+	public Card_Castle(int id, string name, int cost, string effect, Card_Region region, int tCardHP, int tCardATK, int tCardDEF) :base(id, name, cost, effect, region, tCardHP, tCardATK, tCardDEF)
+	{
+		CardType = Card_Type.Castle;
+	}
+
 }

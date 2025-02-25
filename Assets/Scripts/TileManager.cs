@@ -5,15 +5,21 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
 	Tile[][] tiles;
-	int TileColNum { get; set; }
-	int TileRowNum { get; set; }
+	Tile MyCastleTile;
+	Tile EnemyCastleTile;
+	int TileColNum { get; set; } = 5;
+	int TileRowNum { get; set; } = 3;
 
 	private void Start()
 	{
 		AddTiles();
 		SetNearTiles();
+		SetCastleTile();
 	}
 
+	/// <summary>
+	/// 타일 배열 추가
+	/// </summary>
 	void AddTiles()
 	{
 		int num = 0;
@@ -32,6 +38,9 @@ public class TileManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 타일 배열의 인접타일 추가
+	/// </summary>
 	void SetNearTiles()
 	{
 		//위 타일
@@ -39,7 +48,7 @@ public class TileManager : MonoBehaviour
 		{
 			for (int col = 0; col < TileColNum; ++col)
 			{
-				tiles[row][col].AddNearTile(Near_Tile_Dir.Up, tiles[row + 1][col]);
+				tiles[col][row].AddNearTile(Near_Tile_Dir.Up, tiles[col][row + 1]);
 			}
 		}
 
@@ -48,7 +57,7 @@ public class TileManager : MonoBehaviour
 		{
 			for (int col = 0; col < TileColNum; ++col)
 			{
-				tiles[row][col].AddNearTile(Near_Tile_Dir.Down, tiles[row - 1][col]);
+				tiles[col][row].AddNearTile(Near_Tile_Dir.Down, tiles[col][row - 1]);
 			}
 		}
 
@@ -57,7 +66,7 @@ public class TileManager : MonoBehaviour
 		{
 			for (int col = 1; col < TileColNum; ++col)
 			{
-				tiles[row][col].AddNearTile(Near_Tile_Dir.Left, tiles[row][col - 1]);
+				tiles[col][row].AddNearTile(Near_Tile_Dir.Left, tiles[col - 1][row]);
 			}
 		}
 
@@ -66,8 +75,30 @@ public class TileManager : MonoBehaviour
 		{
 			for (int col = 0; col < TileColNum - 1; ++col)
 			{
-				tiles[row][col].AddNearTile(Near_Tile_Dir.Right, tiles[row][col + 1]);
+				tiles[col][row].AddNearTile(Near_Tile_Dir.Right, tiles[col + 1][row]);
 			}
 		}
+	}
+
+	/// <summary>
+	/// 성 타일 추가
+	/// </summary>
+	void SetCastleTile()
+	{
+		MyCastleTile = new Tile(new Vector2Int(3, -1), 1000);
+		EnemyCastleTile = new Tile(new Vector2Int(3, TileRowNum + 1), 2000);
+		MyCastleTile.AddTile_Type(Tile_Type.MyTile);
+		EnemyCastleTile.AddTile_Type(Tile_Type.EnemyTile);
+
+		SetCastleNearTile();
+
+	}
+	/// <summary>
+	/// 성 인접 타일 추가
+	/// </summary>
+	void SetCastleNearTile()
+	{
+		MyCastleTile.AddNearTile(Near_Tile_Dir.Up, tiles[3][0]);
+		EnemyCastleTile.AddNearTile(Near_Tile_Dir.Down, tiles[3][TileRowNum - 1]);
 	}
 }
